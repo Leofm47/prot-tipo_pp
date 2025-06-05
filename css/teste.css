@@ -127,6 +127,7 @@ h2 {
 /* Seção de postagens */
 .div-home-photo {
     margin-top: 60px;
+    
 }
 
 .section-home {
@@ -143,6 +144,7 @@ h2 {
 /* Imagens */
 .div-images {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     margin-top: 10px;
@@ -152,6 +154,7 @@ h2 {
 .div-images img {
     padding: 5px;
     height: 160px;
+    background-color: rgb(217, 207, 207);
     transition: transform 0.3s ease-in-out;
 }
 

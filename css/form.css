@@ -24,7 +24,17 @@
     padding: 20px;
   }
 
-  #Form {
+  #cadastroForm {
+    background-color: rgba(43, 206, 235, 0.178);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 8px 10px rgba(0, 0, 0, 0.481);
+    width: 400px;
+    max-width: 100%;
+  
+  }
+
+  #loginForm {
     background-color: rgba(43, 206, 235, 0.178);
     padding: 20px;
     border-radius: 10px;

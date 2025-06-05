@@ -1,0 +1,35 @@
+{
+
+  "name": "atividade-tecnico",
+  "version": "1.0.0",
+  "description": "Projeto técnico utilizando Express e MySQL",
+  "main": "server/app.js",
+  "scripts": {
+    "start": "node server/app.js",
+    "dev": "nodemon server/app.js"
+  },
+
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "mysql2": "^3.14.1",
+    "node-fetch": "^3.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "keywords": [
+    "nodejs",
+    "express",
+    "mysql",
+    "api"
+  ],
+  "author": "Seu Nome",
+  "license": "ISC"
+}
+
