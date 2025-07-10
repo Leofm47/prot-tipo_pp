@@ -37,27 +37,29 @@
             <h2>Suas Postagens</h2>
             <hr>
         </div>
-        <div class="div-images">
-            <img src="../assets/exemplo.jpg" alt="Imagem usada de Exemplo">
-            <img src="../assets/exemplo.jpg" alt="Imagem usada de Exemplo">
-            <img src="../assets/exemplo.jpg" alt="Imagem usada de Exemplo">
-            <img src="../assets/exemplo.jpg" alt="Imagem usada de Exemplo">
-            <img src="../assets/exemplo.jpg" alt="Imagem usada de Exemplo">
-        </div>
+        <div class="div-images" id="photo-list"></div>
 
         <div class="div-home-photo">
             <h2>Postagens Recentes</h2>
             <hr>
         </div>
-        <div class="div-images">
-            <img src="../assets/exemplo.jpg" alt="Imagem usada de Exemplo">
-            <img src="../assets/exemplo.jpg" alt="Imagem usada de Exemplo">
-            <img src="../assets/exemplo.jpg" alt="Imagem usada de Exemplo">
-            <img src="../assets/exemplo.jpg" alt="Imagem usada de Exemplo">
-            <img src="../assets/exemplo.jpg" alt="Imagem usada de Exemplo">
-        </div>
+        <div class="div-images" id="photo-list"></div>
     </section>
 </main>
+
+<script>
+    fetch('http://localhost:3000/api/photos')
+      .then(res => res.json())
+      .then(photos => {
+        const container = document.getElementById('photo-list');
+        photos.forEach(photo => {
+          const img = document.createElement('img');
+          img.src = 'http://localhost:3000' + photo.url;
+          img.alt = photo.title;
+          container.appendChild(img);
+        });
+      });
+  </script>
 
 </body>
 </html>
