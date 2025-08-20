@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,9 +13,7 @@
     <div class="logo">LOGO</div>
 
     <div class="profile-menu">
-        <button class="profile-icon">
-            &#128100; ▼
-        </button>
+        <button class="profile-icon">&#128100; ▼</button>
         <div class="dropdown">
             <a href="index.html">Home</a>
             <a href="#">Perfil</a>
@@ -25,41 +23,35 @@
         </div>
     </div>
 
-    <div class="search-icon">
-        <i class="fas fa-search"></i>
+    <div id="div_button">
+        <a href="post.html">Fazer Post</a>
     </div>
-    
+
+    <div class="search-icon"><i class="fas fa-search"></i></div>
 </header>
 
 <main class="main-home">
     <section class="section-home">
+
+        <!-- Minhas Postagens -->
         <div class="div-home-photo">
-            <h2>Suas Postagens</h2>
+            <h2>Minhas Postagens</h2>
             <hr>
         </div>
-        <div class="div-images" id="photo-list"></div>
+        <div class="div-images" id="minhas-postagens"></div>
 
+        <!-- Postagens Recentes -->
         <div class="div-home-photo">
             <h2>Postagens Recentes</h2>
             <hr>
         </div>
-        <div class="div-images" id="photo-list"></div>
+        <div class="div-images" id="recentes"></div>
+
     </section>
+
+    <script src="../js/index.js"></script>
 </main>
 
-<script>
-    fetch('http://localhost:3000/api/photos')
-      .then(res => res.json())
-      .then(photos => {
-        const container = document.getElementById('photo-list');
-        photos.forEach(photo => {
-          const img = document.createElement('img');
-          img.src = 'http://localhost:3000' + photo.url;
-          img.alt = photo.title;
-          container.appendChild(img);
-        });
-      });
-  </script>
 
 </body>
 </html>

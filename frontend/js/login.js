@@ -5,9 +5,9 @@ const loginform = document.getElementById('loginForm');
           e.preventDefault();
         
           const email = document.getElementById('email').value;
-          const senha = document.getElementById('senha').value;
+          const password = document.getElementById('password').value;
           
-          if ( !email || !senha ) {
+          if ( !email || !password ) {
             alert("Todos os campos são obrigatórios!");
             return;
           }
@@ -15,21 +15,17 @@ const loginform = document.getElementById('loginForm');
           const response = await fetch('http://localhost:3030/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, senha})
+            body: JSON.stringify({ email, password})
           });
           
           const result = await response.json();
           
           if (result.success) {
-            console.log("Resposta do login:", result);
-            alert("login realizado com sucesso!");
+            localStorage.setItem("usuarioId", result.usuario_id);
+            alert("Login realizado com sucesso!");
+            window.location.href = "index.html";
         } else {
-          alert("Erro no login!");
+            alert(result.message); // mostra 'Usuário ou senha incorretos!' ou outro erro
         }
       });
     }
-    
-function redirecionarCadastro() {
-  window.location.href = "index.html";
-}
-document.getElementById('botaoPaginaCadastro').addEventListener('click', redirecionarCadastro);

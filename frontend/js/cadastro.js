@@ -3,11 +3,11 @@ if (form) {
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        const nome = document.getElementById('nome').value;
+        const name = document.getElementById('name').value;
         const email = document.getElementById('email').value;
-        const senha = document.getElementById('senha').value;
+        const password = document.getElementById('password').value;
 
-        if (!nome || !email || !senha ) {
+        if (!name || !email || !password ) {
             alert("Todos os campos são obrigatórios!");
             return;
         }
@@ -15,7 +15,7 @@ if (form) {
         const response = await fetch('http://localhost:3030/cadastro', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ nome, email, senha })
+            body: JSON.stringify({ name, email, password })
         });
 
         const result = await response.json();
@@ -33,7 +33,3 @@ if (form) {
         }
     });
 }
-function redirecionarLogin() {
-    window.location.href = "login.html";
-  }
-  document.getElementById('botaoPaginaLogin').addEventListener('click', redirecionarLogin);

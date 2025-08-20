@@ -4,7 +4,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    color: #ddd;
+    color: black;
   }
   
   #section_login {
@@ -31,7 +31,6 @@
     box-shadow: 0 8px 10px rgba(0, 0, 0, 0.481);
     width: 400px;
     max-width: 100%;
-  
   }
 
   #loginForm {
@@ -41,7 +40,6 @@
     box-shadow: 0 8px 10px rgba(0, 0, 0, 0.481);
     width: 400px;
     max-width: 100%;
-  
   }
   
   h1 {
@@ -54,6 +52,19 @@
     margin-bottom: 10px;
   }
   
+  a {
+    background-color: rgba(0, 51, 102);
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 1em;
+    text-decoration: none;
+  
+  }
+
   button {
     background-color: rgba(0, 51, 102);
     color: #fff;
@@ -65,13 +76,13 @@
     font-size: 1em;
   }
 
+  a:hover {
+    background-color: #0056b3;
+  }
+
   #div_button {
     display: flex;
     justify-content: center;
-  }
-  
-  button:hover {
-    background-color: #0056b3;
   }
 
   

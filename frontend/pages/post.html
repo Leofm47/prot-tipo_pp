@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Login</title>
+    <link rel="stylesheet" href="../css/post.css">
+</head>
+
+<body>
+
+  <h1>Criar Post</h1>
+  <form id="formPost" enctype="multipart/form-data">
+    <input type="text" name="title" placeholder="Título" required>
+    <textarea name="description" placeholder="Descrição" required></textarea>
+    <input type="file" name="image" accept="image/*">
+    <button type="submit">Postar</button>
+  </form>
+
+  <div id="posts"></div>
+  <script src="../js/post.js"></script>
+</body>
+</html>

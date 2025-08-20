@@ -23,10 +23,17 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-app.post('/cadastro', (req, res) => {
-    const { nome, email, senha } = req.body;
-    const userQuery = 'INSERT INTO users (nome, email, senha) VALUES (?, ?, ?)';
-    connection.query(userQuery, [nome, email, senha], (err) => {
+// 📌 Cadastro de usuário
+app.post('/cadastro', upload.single('profile_image'), (req, res) => {
+    const { name, email, password } = req.body;
+    const profileImage = req.file ? `/uploads/${req.file.filename}` : null;
+
+    const userQuery = `
+        INSERT INTO users (name, email, password, profile_image) 
+        VALUES (?, ?, ?, ?)
+    `;
+
+    connection.query(userQuery, [name, email, password, profileImage], (err) => {
         if (err) {
             console.error("Erro do MySQL:", err);
             return res.status(500).json({ success: false, message: 'Erro ao cadastrar usuário.', error: err.sqlMessage });
@@ -35,27 +42,39 @@ app.post('/cadastro', (req, res) => {
     });
 });
 
+// 📌 Login de usuário
 app.post('/login', (req, res) => {
-    const { email, senha } = req.body;
-    const query = 'SELECT * FROM users WHERE email = ? AND senha = ?';
-    connection.query(query, [email, senha], (err, results) => {
+    const { email, password } = req.body;
+    const query = 'SELECT * FROM users WHERE email = ? AND password = ?';
+
+    connection.query(query, [email, password], (err, results) => {
         if (err) {
-            console.error('Erro ao cadastrar usuário:', err);
+            console.error('Erro no login:', err);
             return res.status(500).json({ success: false, message: 'Erro no servidor.' });
         }
         if (results.length > 0) {
-            res.json({ success: true, message: 'Login bem-sucedido!', usuario_id: results[0].id });
+            res.json({ 
+                success: true, 
+                message: 'Login bem-sucedido!', 
+                usuario_id: results[0].id 
+            });
         } else {
             res.json({ success: false, message: 'Usuário ou senha incorretos!' });
         }
     });
 });
 
+// 📌 Criar post (foto)
 app.post('/posts', upload.single('image'), (req, res) => {
+    console.log('REQ BODY LOGIN:', req.body);
     const { title, description, author_id } = req.body;
-    const imagePath = `/uploads/${req.file.filename}`;
-    
-    const query = 'INSERT INTO photo (title, description, url, author_id) VALUES (?, ?, ?, ?)';
+    const imagePath = req.file ? `/uploads/${req.file.filename}` : null; // ✅ verificação
+
+    const query = `
+        INSERT INTO photo (title, description, url, author_id) 
+        VALUES (?, ?, ?, ?)
+    `;
+
     connection.query(query, [title, description, imagePath, author_id], (err, result) => {
         if (err) {
             console.error("Erro ao salvar post:", err);
@@ -65,8 +84,15 @@ app.post('/posts', upload.single('image'), (req, res) => {
     });
 });
 
+
+// 📌 Listar posts
 app.get('/posts', (req, res) => {
-    const query = 'SELECT * FROM photo ORDER BY created_at DESC';
+    const query = `
+        SELECT p.*, u.name AS author_name, u.profile_image 
+        FROM photo p
+        JOIN users u ON p.author_id = u.id
+        ORDER BY p.created_at DESC
+    `;
     connection.query(query, (err, results) => {
         if (err) {
             console.error("Erro ao buscar posts:", err);
@@ -75,7 +101,6 @@ app.get('/posts', (req, res) => {
         res.json(results);
     });
 });
-
 
 app.listen(port, () => {
     console.log(`Servidor rodando na porta ${port}`);
