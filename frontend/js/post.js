@@ -1,17 +1,12 @@
-let usuarioId = localStorage.getItem("usuarioId");
-
-// Seleciona o form
-const formPost = document.getElementById("formPost");
-
 formPost.addEventListener("submit", async (e) => {
     e.preventDefault();
 
+    const usuarioId = localStorage.getItem("usuarioId");
     if (!usuarioId) {
         alert("Você precisa estar logado para postar!");
         return;
     }
 
-    // Criar FormData
     const formData = new FormData(formPost);
     formData.append("author_id", usuarioId);
 
@@ -22,11 +17,11 @@ formPost.addEventListener("submit", async (e) => {
         });
 
         const data = await res.json();
+        console.log(data);
 
         if (data.success) {
-            alert(data.message);
-            formPost.reset(); // Limpa o formulário
-            window.location.href = "index.html"
+            //alert(data.message);
+            window.location.href = "index.html"; 
         } else {
             alert("Erro: " + data.message);
         }
