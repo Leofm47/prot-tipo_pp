@@ -10,7 +10,7 @@ app.use(cors());
 app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// 🔧 Configuração de armazenamento do multer
+// Configuração de armazenamento do multer
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, 'uploads/');
@@ -23,7 +23,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-// 📌 Cadastro de usuário
+// Cadastro de usuário
 app.post('/cadastro', upload.single('profile_image'), (req, res) => {
     const { name, email, password } = req.body;
     const profileImage = req.file ? `/uploads/${req.file.filename}` : null;
@@ -42,7 +42,7 @@ app.post('/cadastro', upload.single('profile_image'), (req, res) => {
     });
 });
 
-// 📌 Login de usuário
+// Login de usuário
 app.post('/login', (req, res) => {
     const { email, password } = req.body;
     const query = 'SELECT * FROM users WHERE email = ? AND password = ?';
@@ -64,11 +64,11 @@ app.post('/login', (req, res) => {
     });
 });
 
-// 📌 Criar post (foto)
+// Criar post
 app.post('/posts', upload.single('image'), (req, res) => {
     console.log('REQ BODY LOGIN:', req.body);
     const { title, description, author_id } = req.body;
-    const imagePath = req.file ? `/uploads/${req.file.filename}` : null; // ✅ verificação
+    const imagePath = req.file ? `/uploads/${req.file.filename}` : null; 
 
     const query = `
         INSERT INTO photo (title, description, url, author_id) 
@@ -85,7 +85,7 @@ app.post('/posts', upload.single('image'), (req, res) => {
 });
 
 
-// 📌 Listar posts
+// Listar posts
 app.get('/posts', (req, res) => {
     const query = `
         SELECT p.*, u.name AS author_name, u.profile_image 
@@ -104,4 +104,45 @@ app.get('/posts', (req, res) => {
 
 app.listen(port, () => {
     console.log(`Servidor rodando na porta ${port}`);
+});
+
+//entrar no post
+app.get('/posts/:id', (req, res) => {
+    const postId = req.params.id;
+    const query = `
+        SELECT p.*, u.name AS author_name, u.profile_image 
+        FROM photo p
+        JOIN users u ON p.author_id = u.id
+        WHERE p.id = ?
+    `;
+    connection.query(query, [postId], (err, results) => {
+        if (err) return res.status(500).json({ success: false, message: 'Erro ao buscar post.' });
+        res.json(results[0]);
+    });
+});
+
+//comentar no post
+app.post('/comments', (req, res) => {
+    const { text, photo_id, author_id } = req.body;
+    const query = `INSERT INTO comment (text, photo_id, author_id) VALUES (?, ?, ?)`;
+    connection.query(query, [text, photo_id, author_id], (err) => {
+        if (err) return res.status(500).json({ success: false, message: 'Erro ao comentar.' });
+        res.json({ success: true, message: 'Comentário adicionado!' });
+    });
+});
+
+//get nos comentarios
+app.get('/comments/:photo_id', (req, res) => {
+    const { photo_id } = req.params;
+    const query = `
+        SELECT c.*, u.name AS author_name, u.profile_image 
+        FROM comment c
+        JOIN users u ON c.author_id = u.id
+        WHERE c.photo_id = ?
+        ORDER BY c.created_at DESC
+    `;
+    connection.query(query, [photo_id], (err, results) => {
+        if (err) return res.status(500).json({ success: false, message: 'Erro ao carregar comentários.' });
+        res.json(results);
+    });
 });
