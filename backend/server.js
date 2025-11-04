@@ -146,3 +146,45 @@ app.get('/comments/:photo_id', (req, res) => {
         res.json(results);
     });
 });
+
+// Curtir um post
+app.post('/likes', (req, res) => {
+    const { user_id, photo_id } = req.body;
+    const query = `INSERT INTO likes (user_id, photo_id) VALUES (?, ?)`;
+    connection.query(query, [user_id, photo_id], (err) => {
+        if (err) {
+            if (err.code === 'ER_DUP_ENTRY') {
+                return res.status(400).json({ success: false, message: 'Você já curtiu este post.' });
+            }
+            return res.status(500).json({ success: false, message: 'Erro ao curtir post.' });
+        }
+        res.json({ success: true, message: 'Post curtido!' });
+    });
+});
+
+// Descurtir
+app.delete('/likes', (req, res) => {
+    const { user_id, photo_id } = req.body;
+    const query = `DELETE FROM likes WHERE user_id = ? AND photo_id = ?`;
+    connection.query(query, [user_id, photo_id], (err) => {
+        if (err) return res.status(500).json({ success: false, message: 'Erro ao descurtir.' });
+        res.json({ success: true, message: 'Curtida removida.' });
+    });
+});
+
+// Buscar posts curtidos por um usuário
+app.get('/likes/:user_id', (req, res) => {
+    const { user_id } = req.params;
+    const query = `
+        SELECT p.*, u.name AS author_name, u.profile_image
+        FROM likes l
+        JOIN photo p ON l.photo_id = p.id
+        JOIN users u ON p.author_id = u.id
+        WHERE l.user_id = ?
+        ORDER BY l.created_at DESC
+    `;
+    connection.query(query, [user_id], (err, results) => {
+        if (err) return res.status(500).json({ success: false, message: 'Erro ao buscar curtidas.' });
+        res.json(results);
+    });
+});

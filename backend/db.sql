@@ -44,6 +44,16 @@ create table comment (
     foreign key (author_id) references users(id)
 );
 
+create table likes (
+    id int primary key auto_increment,
+    user_id int not null,
+    photo_id int not null,
+    created_at timestamp default current_timestamp,
+    foreign key (user_id) references users(id),
+    foreign key (photo_id) references photo(id),
+    unique (user_id, photo_id) -- garante que um usuário curta uma vez só
+);
+
 drop database app_pp;
 
 select * from photo;
