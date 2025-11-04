@@ -188,3 +188,70 @@ app.get('/likes/:user_id', (req, res) => {
         res.json(results);
     });
 });
+
+
+// Buscar dados de um usuário (para o perfil)
+app.get('/users/:id', (req, res) => {
+    const userId = req.params.id;
+    const query = `
+        SELECT id, name, email, profile_image, created_at
+        FROM users
+        WHERE id = ?
+    `;
+    connection.query(query, [userId], (err, results) => {
+        if (err) {
+            console.error('Erro ao buscar usuário:', err);
+            return res.status(500).json({ success: false, message: 'Erro ao carregar usuário.' });
+        }
+        res.json(results[0]);
+    });
+});
+
+// Excluir usuário e seus posts
+app.delete('/users/:id', (req, res) => {
+    const userId = req.params.id;
+
+    // Primeiro, deletar os posts do usuário
+    const deletePosts = `DELETE FROM photo WHERE author_id = ?`;
+    connection.query(deletePosts, [userId], (err) => {
+        if (err) return res.status(500).json({ success: false, message: 'Erro ao excluir posts do usuário.' });
+
+        // Depois, deletar o próprio usuário
+        const deleteUser = `DELETE FROM users WHERE id = ?`;
+        connection.query(deleteUser, [userId], (err2) => {
+            if (err2) return res.status(500).json({ success: false, message: 'Erro ao excluir usuário.' });
+            res.json({ success: true, message: 'Conta excluída com sucesso!' });
+        });
+    });
+});
+
+app.put('/users/:id', upload.single('profile_image'), (req, res) => {
+    const userId = req.params.id;
+    const { name, email, password } = req.body;
+    const profileImage = req.file ? `/uploads/${req.file.filename}` : null;
+
+    let query = 'UPDATE users SET name = ?, email = ?';
+    const values = [name, email];
+
+    if (password) {
+        query += ', password = ?';
+        values.push(password);
+    }
+
+    if (profileImage) {
+        query += ', profile_image = ?';
+        values.push(profileImage);
+    }
+
+    query += ' WHERE id = ?';
+    values.push(userId);
+
+    connection.query(query, values, (err) => {
+        if (err) {
+            console.error('Erro ao atualizar perfil:', err);
+            return res.status(500).json({ success: false, message: 'Erro ao atualizar perfil.' });
+        }
+        res.json({ success: true, message: 'Perfil atualizado com sucesso!' });
+    });
+});
+
