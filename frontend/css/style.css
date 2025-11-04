@@ -177,3 +177,9 @@ main.main-home {
     background-color: #c0d113;
     transform: scale(1.1);
   }  
+
+  .logo img {
+    width: 60px; /* diminui o tamanho da logo */
+    height: auto; /* mantém a proporção */
+    display: block;
+}

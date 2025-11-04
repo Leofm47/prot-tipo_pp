@@ -96,3 +96,156 @@ form button:hover {
     font-size: 20px;
     color: #d0e413;
 }
+
+.logo img {
+    width: 60px; /* diminui o tamanho da logo */
+    height: auto; /* mantém a proporção */
+    display: block;
+}
+
+/* Profile menu */
+.profile-menu {
+    position: relative;
+}
+
+.profile-menu .profile-icon {
+    background: none;
+    border: none;
+    color: #eee;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.profile-menu .dropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 120%;
+    background-color: #1f1f1f;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    overflow: hidden;
+}
+
+.profile-menu .dropdown a {
+    display: block;
+    padding: 10px 20px;
+    color: #eee;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+.profile-menu .dropdown a:hover {
+    background-color: #2b2b2b;
+}
+
+/* Mostrar dropdown ao hover */
+.profile-menu:hover .dropdown {
+    display: block;
+}
+
+/* Botão fazer post */
+#div_button a {
+    display: inline-block;
+    padding: 8px 15px;
+    background-color: #d0e413;
+    color: #000;
+    font-weight: bold;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+#div_button a:hover {
+    background-color: #c0d113;
+}
+
+/* Ícone de busca */
+.search-icon {
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: #eee;
+}
+
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background-color: #1f1f1f;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #d0e413;
+}
+
+/* Profile menu */
+.profile-menu {
+    position: relative;
+}
+
+.profile-menu .profile-icon {
+    background: none;
+    border: none;
+    color: #eee;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.profile-menu .dropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 120%;
+    background-color: #1f1f1f;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    overflow: hidden;
+}
+
+.profile-menu .dropdown a {
+    display: block;
+    padding: 10px 20px;
+    color: #eee;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+.profile-menu .dropdown a:hover {
+    background-color: #2b2b2b;
+}
+
+/* Mostrar dropdown ao hover */
+.profile-menu:hover .dropdown {
+    display: block;
+}
+
+/* Botão fazer post */
+#div_button a {
+    display: inline-block;
+    padding: 8px 15px;
+    background-color: #d0e413;
+    color: #000;
+    font-weight: bold;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+#div_button a:hover {
+    background-color: #c0d113;
+}
+
+/* Ícone de busca */
+.search-icon {
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: #eee;
+}

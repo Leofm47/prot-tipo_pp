@@ -24,7 +24,7 @@ if (form) {
         if (result.success) {
             console.log("Cadast ro realizado com sucesso! ID do usuário:", result.usuario_id);
             alert("Cadastro realizado com sucesso!");
-            window.location.href = "index.html";
+            window.location.href = "login.html";
             
         } else {
             console.error("Erro no cadastro:", result.message);

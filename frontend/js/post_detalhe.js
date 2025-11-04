@@ -8,10 +8,12 @@ document.addEventListener("DOMContentLoaded", async () => {
   const post = await postRes.json();
 
   document.getElementById("post-container").innerHTML = `
+  <div class="profile">
     <h2>${post.title}</h2>
     <p>${post.description}</p>
     ${post.url ? `<img src="http://localhost:3030${post.url}" width="300">` : ""}
     <p><b>Autor:</b> ${post.author_name}</p>
+  </div>
   `;
 
   // Carregar comentários

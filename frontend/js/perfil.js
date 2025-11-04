@@ -10,15 +10,17 @@ document.addEventListener("DOMContentLoaded", async () => {
     const user = await res.json();
 
     perfilContainer.innerHTML = `
+    <div class="profile">
       <h2>${user.name}</h2>
       <p><b>Email:</b> ${user.email}</p>
       ${user.profile_image ? `<img src="http://localhost:3030${user.profile_image}" width="150">` : ""}
       <p><b>Membro desde:</b> ${new Date(user.created_at).toLocaleDateString()}</p>
+      </div>
     `;
 
     // Se for o próprio usuário logado, mostrar botões de editar e excluir
     if (usuarioLogado == userId) {
-      acoesContainer.innerHTML = `
+      acoesContainer.innerHTML = "" && `
         <button id="editar">Editar Perfil</button>
         <button id="excluir">Excluir Conta</button>
       `;

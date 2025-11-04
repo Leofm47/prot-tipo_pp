@@ -1,15 +1,40 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página de Login</title>
+    <title>Página Inicial</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="../css/post.css">
 </head>
-
 <body>
 
-  <h1>Criar Post</h1>
+    <header>
+        <a href="index.html"> 
+         <div class="logo">
+             <img src="../../assets/social_picture.png" alt="Logo da aplicação">
+         </div>
+         </a>
+     
+         <div class="profile-menu">
+             <button class="profile-icon">&#128100; ▼</button>
+             <div class="dropdown">
+                 <a href="index.html">Home</a>
+                 <a href="perfil.html">Perfil</a>
+                 <a href="curtidas.html">Curtidas</a>
+                 <a href="#">Network</a>
+                 <a href="login.html">Sair</a>
+             </div>
+         </div>
+     
+         <div id="div_button">
+             <a href="post.html">Fazer Post</a>
+         </div>
+     
+         <div class="search-icon"><i class="fas fa-search"></i></div>
+     </header>
+
+  <h1>Crie Seu Post</h1>
   <form id="formPost" enctype="multipart/form-data">
     <input type="text" name="title" placeholder="Título" required>
     <textarea name="description" placeholder="Descrição" required></textarea>
