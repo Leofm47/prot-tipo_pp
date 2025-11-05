@@ -37,6 +37,7 @@ header {
     position: relative;
 }
 
+/* Ícone do perfil */
 .profile-menu .profile-icon {
     background: none;
     border: none;
@@ -45,8 +46,8 @@ header {
     cursor: pointer;
 }
 
+/* Dropdown com atraso para desaparecer */
 .profile-menu .dropdown {
-    display: none;
     position: absolute;
     right: 0;
     top: 120%;
@@ -54,6 +55,20 @@ header {
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.5);
     overflow: hidden;
+
+    /* efeito de visibilidade suave */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+    transition-delay: 0.3s; /* atraso antes de sumir */
+}
+
+/* Mostrar dropdown ao hover */
+.profile-menu:hover .dropdown,
+.profile-menu .dropdown:hover {
+    opacity: 1;
+    visibility: visible;
+    transition-delay: 0s; /* aparece imediatamente */
 }
 
 .profile-menu .dropdown a {
@@ -66,11 +81,6 @@ header {
 
 .profile-menu .dropdown a:hover {
     background-color: #2b2b2b;
-}
-
-/* Mostrar dropdown ao hover */
-.profile-menu:hover .dropdown {
-    display: block;
 }
 
 /* Botão fazer post */
@@ -154,6 +164,7 @@ main.main-home {
     margin-bottom: 10px;
 }
 
+/* Aba flutuante (chat) */
 .aba-flutuante {
     position: fixed;
     bottom: 20px;
@@ -171,15 +182,16 @@ main.main-home {
     box-shadow: 0 4px 10px rgba(0,0,0,0.5);
     transition: 0.3s;
     z-index: 200;
-  }
-  
-  .aba-flutuante:hover {
+}
+
+.aba-flutuante:hover {
     background-color: #c0d113;
     transform: scale(1.1);
-  }  
+}
 
-  .logo img {
-    width: 60px; /* diminui o tamanho da logo */
-    height: auto; /* mantém a proporção */
+/* Logo */
+.logo img {
+    width: 60px;
+    height: auto;
     display: block;
 }

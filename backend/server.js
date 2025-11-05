@@ -209,14 +209,19 @@ app.get('/users/:id', (req, res) => {
 
 // Excluir usuário e seus posts
 app.delete('/users/:id', (req, res) => {
-    const userId = req.params.id;
+    const userId = parseInt(req.params.id);
+    const { user_id } = req.body;
 
-    // Primeiro, deletar os posts do usuário
+    console.log("Requisição DELETE recebida:", req.body); // <-- pra testar
+
+    if (user_id && parseInt(user_id) !== userId) {
+        return res.status(403).json({ success: false, message: 'Você só pode excluir sua própria conta.' });
+    }
+
     const deletePosts = `DELETE FROM photo WHERE author_id = ?`;
     connection.query(deletePosts, [userId], (err) => {
         if (err) return res.status(500).json({ success: false, message: 'Erro ao excluir posts do usuário.' });
 
-        // Depois, deletar o próprio usuário
         const deleteUser = `DELETE FROM users WHERE id = ?`;
         connection.query(deleteUser, [userId], (err2) => {
             if (err2) return res.status(500).json({ success: false, message: 'Erro ao excluir usuário.' });

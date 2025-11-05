@@ -10,17 +10,17 @@ document.addEventListener("DOMContentLoaded", async () => {
     const user = await res.json();
 
     perfilContainer.innerHTML = `
-    <div class="profile">
-      <h2>${user.name}</h2>
-      <p><b>Email:</b> ${user.email}</p>
-      ${user.profile_image ? `<img src="http://localhost:3030${user.profile_image}" width="150">` : ""}
-      <p><b>Membro desde:</b> ${new Date(user.created_at).toLocaleDateString()}</p>
+      <div class="profile">
+        <h2>${user.name}</h2>
+        <p><b>Email:</b> ${user.email}</p>
+        ${user.profile_image ? `<img src="http://localhost:3030${user.profile_image}" width="150">` : ""}
+        <p><b>Membro desde:</b> ${new Date(user.created_at).toLocaleDateString()}</p>
       </div>
     `;
 
     // Se for o próprio usuário logado, mostrar botões de editar e excluir
     if (usuarioLogado == userId) {
-      acoesContainer.innerHTML = "" && `
+      acoesContainer.innerHTML = `
         <button id="editar">Editar Perfil</button>
         <button id="excluir">Excluir Conta</button>
       `;
@@ -33,15 +33,20 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (confirm("Tem certeza que deseja excluir sua conta? Isso apagará todos os seus posts.")) {
           const res = await fetch(`http://localhost:3030/users/${userId}`, {
             method: "DELETE",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ user_id: usuarioLogado }) // <- IMPORTANTE!
           });
+
           const data = await res.json();
           alert(data.message);
-          localStorage.removeItem("usuarioId");
-          window.location.href = "index.html";
+          if (data.success) {
+            localStorage.removeItem("usuarioId");
+            window.location.href = "index.html";
+          }
         }
-      });
-    }
+      }); // <-- FECHA o addEventListener do "excluir"
+    } // <-- FECHA o if (usuarioLogado == userId)
   } catch (err) {
     console.error("Erro ao carregar perfil:", err);
   }
-});
+}); // <-- FECHA o DOMContentLoaded
