@@ -35,8 +35,15 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         // Se for do usuário logado, mostra em "Minhas Postagens"
         if (post.author_id == localStorage.getItem("usuarioId")) {
-          minhasContainer.appendChild(div.cloneNode(true));
-        }
+          const divMinhas = document.createElement("div");
+          divMinhas.innerHTML = div.innerHTML;
+          divMinhas.addEventListener("click", () => {
+            window.location.href = `post_detalhe.html?id=${post.id}`;
+          });
+          minhasContainer.appendChild(divMinhas);
+}
+
+recentesContainer.appendChild(div);
 
         // Mostra também em "Postagens Recentes"
         recentesContainer.appendChild(div);
