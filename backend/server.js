@@ -260,3 +260,15 @@ app.put('/users/:id', upload.single('profile_image'), (req, res) => {
     });
 });
 
+// Listar todos os usuários (para o chat)
+app.get('/all-users', (req, res) => {
+    const query = 'SELECT id, name, profile_image FROM users';
+    connection.query(query, (err, results) => {
+      if (err) {
+        console.error('Erro ao buscar todos os usuários:', err);
+        return res.status(500).json({ success: false, message: 'Erro ao buscar usuários.' });
+      }
+      res.json(results);
+    });
+  });
+  

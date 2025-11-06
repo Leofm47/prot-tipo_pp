@@ -195,3 +195,12 @@ main.main-home {
     height: auto;
     display: block;
 }
+
+#user-list li.online {
+    color: #4caf50;
+    font-weight: bold;
+  }
+  #user-list li.offline {
+    color: #999;
+  }
+  
