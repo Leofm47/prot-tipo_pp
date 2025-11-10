@@ -1,0 +1,108 @@
+/* ===============================
+   FORMULÁRIO DE EDIÇÃO DE PERFIL
+==================================*/
+.edit-container {
+    max-width: 420px;
+    margin: 80px auto;
+    padding: 30px;
+    background-color: #1f1f1f;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    text-align: center;
+  }
+  
+  /* Imagem de perfil */
+  .profile_image {
+    width: 120px;
+    height: 120px;
+    border-radius: 10%;
+    object-fit: cover;
+    border: 3px solid #d0e413;
+    margin-bottom: 20px;
+    box-shadow: 0 0 15px rgba(208, 228, 19, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .profile_image:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px rgba(208, 228, 19, 0.5);
+  }
+  
+  /* Título */
+  .edit-container h2 {
+    color: #d0e413;
+    margin-bottom: 25px;
+    font-size: 1.6rem;
+    letter-spacing: 0.5px;
+  }
+  
+  /* Campos de entrada */
+  #formEditar input[type="text"],
+  #formEditar input[type="email"],
+  #formEditar input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin: 0 0 15px 5px;
+    border: none;
+    border-radius: 8px;
+    background-color: #2a2a2a;
+    color: #eee;
+    font-size: 1rem;
+    transition: 0.3s;
+  }
+  
+  #formEditar input:focus {
+    outline: 2px solid #d0e413;
+    background-color: #333;
+  }
+  
+  /* Upload estilizado */
+  .file-upload {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: linear-gradient(135deg, #d0e413, #c7f12e);
+    color: #000;
+    font-weight: bold;
+    border-radius: 10px;
+    padding: 14px 22px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 20px 0 30px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
+  }
+  
+  .file-upload:hover {
+    transform: translateY(-3px) scale(1.02);
+    background: linear-gradient(135deg, #c0d113, #e8ff4f);
+    box-shadow: 0 5px 14px rgba(208, 228, 19, 0.4);
+  }
+  
+  .file-upload i {
+    font-size: 1.3rem;
+  }
+  
+  .file-upload input[type="file"] {
+    display: none;
+  }
+  
+  /* Botão de envio */
+  #formEditar button {
+    width: 100%;
+    padding: 12px;
+    background-color: #d0e413;
+    color: #000;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  #formEditar button:hover {
+    background-color: #c0d113;
+    transform: translateY(-2px);
+  }
+  

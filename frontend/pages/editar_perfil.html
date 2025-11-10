@@ -1,46 +1,58 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página Inicial</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="../css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editar Perfil</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/editar_perfil.css">
 </head>
 <body>
 
-    <header>
-        <a href="index.html"> 
-         <div class="logo">
-             <img src="../../assets/social_picture.png" alt="Logo da aplicação">
-         </div>
-         </a>
-     
-         <div class="profile-menu">
-             <button class="profile-icon">&#128100; ▼</button>
-             <div class="dropdown">
-                 <a href="index.html">Home</a>
-                 <a href="perfil.html">Perfil</a>
-                 <a href="curtidas.html">Curtidas</a>
-                 <a href="#">Network</a>
-                 <a href="login.html">Sair</a>
-             </div>
-         </div>
-     
-         <div id="div_button">
-             <a href="post.html">Fazer Post</a>
-         </div>
-     
-         <div class="search-icon"><i class="fas fa-search"></i></div>
-     </header>
-  <h2>Editar Perfil</h2>
-  <form id="formEditar" enctype="multipart/form-data">
-    <input type="text" name="name" placeholder="Novo nome" required><br>
-    <input type="email" name="email" placeholder="Novo email" required><br>
-    <input type="password" name="password" placeholder="Nova senha"><br>
-    <input type="file" name="profile_image"><br>
-    <button type="submit">Salvar alterações</button>
-  </form>
+  <header>
+    <a href="index.html">
+      <div class="logo">
+        <img src="../../assets/social_picture.png" alt="Logo da aplicação">
+      </div>
+    </a>
+
+    <div class="profile-menu">
+      <button class="profile-icon">&#128100; ▼</button>
+      <div class="dropdown">
+        <a href="index.html">Home</a>
+        <a href="perfil.html">Perfil</a>
+        <a href="curtidas.html">Curtidas</a>
+        <a href="#">Network</a>
+        <a href="login.html">Sair</a>
+      </div>
+    </div>
+
+    <div id="div_button">
+      <a href="post.html">Fazer Post</a>
+    </div>
+
+    <div class="search-icon"><i class="fas fa-search"></i></div>
+  </header>
+
+  <div class="edit-container">
+    <img src="../../assets/default_profile.jpg" alt="Foto de perfil" class="profile_image" id="previewImage">
+
+    <h2>Editar Perfil</h2>
+
+    <form id="formEditar" enctype="multipart/form-data">
+      <input type="text" name="name" placeholder="Novo nome" required><br>
+      <input type="email" name="email" placeholder="Novo email" required><br>
+      <input type="password" name="password" placeholder="Nova senha"><br>
+
+      <label class="file-upload">
+        <i class="fas fa-camera"></i> Escolher nova imagem
+        <input type="file" name="profile_image" accept="image/*" id="fileInput">
+      </label>
+
+      <button type="submit">Salvar alterações</button>
+    </form>
+  </div>
 
   <script src="../js/editar_perfil.js"></script>
   <script src="../js/menu.js"></script>
