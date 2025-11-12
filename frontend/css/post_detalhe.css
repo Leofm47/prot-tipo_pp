@@ -1,0 +1,175 @@
+/* ===============================
+   ESTILO PARA PÁGINA DE DETALHE DO POST
+==================================*/
+
+/* Container principal do post */
+#post-container {
+    max-width: 850px;
+    margin: 40px auto;
+    background-color: #1f1f1f;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+    padding: 25px 30px;
+    color: #eee;
+    line-height: 1.7;
+    transition: all 0.3s ease;
+  }
+  
+  /* Título do post */
+  #post-container h1 {
+    font-size: 2rem;
+    color: #d0e413;
+    margin-bottom: 15px;
+  }
+  
+  /* Imagem destacada */
+  #post-container img {
+    width: 100%;
+    border-radius: 10px;
+    margin: 20px 0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  }
+  
+  /* Informações do autor e data */
+  .post-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: #aaa;
+    margin-bottom: 20px;
+  }
+  
+  .post-info .autor {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .post-info .autor img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    border: 2px solid #d0e413;
+  }
+  
+  /* Texto do post */
+  #post-container p {
+    margin-bottom: 20px;
+    font-size: 1rem;
+    text-align: justify;
+  }
+  
+  /* ===============================
+     SEÇÃO DE COMENTÁRIOS
+  ==================================*/
+  
+  #comentarios {
+    max-width: 850px;
+    margin: 30px auto 60px auto;
+    background-color: #1a1a1a;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  }
+  
+  #comentarios h3 {
+    color: #d0e413;
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #d0e413;
+    padding-bottom: 8px;
+  }
+  
+  /* Lista de comentários */
+  #lista-comentarios {
+    margin-bottom: 20px;
+  }
+  
+  .comentario {
+    background-color: #242424;
+    padding: 12px 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+    transition: 0.2s ease;
+  }
+  
+  .comentario:hover {
+    transform: translateY(-2px);
+  }
+  
+  .comentario strong {
+    color: #d0e413;
+  }
+  
+  .comentario span {
+    color: #bbb;
+    font-size: 0.85rem;
+  }
+  
+  /* Campo de texto */
+  #textoComentario {
+    width: 100%;
+    min-height: 80px;
+    background-color: #2b2b2b;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 12px;
+    color: #eee;
+    resize: vertical;
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+  }
+  
+  #textoComentario::placeholder {
+    color: #888;
+  }
+  
+  /* Botões */
+  #btnComentar,
+  #btnCurtir {
+    background-color: #d0e413;
+    color: #000;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 18px;
+    margin-right: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+  }
+  
+  #btnComentar:hover,
+  #btnCurtir:hover {
+    background-color: #c0d113;
+    transform: translateY(-2px);
+  }
+  
+  /* Efeito especial no botão Curtir */
+  #btnCurtir {
+    background-color: #e84343;
+    color: #fff;
+  }
+  
+  #btnCurtir:hover {
+    background-color: #d12f2f;
+  }
+  
+  /* Animação sutil ao carregar */
+  #post-container,
+  #comentarios {
+    animation: fadeIn 0.6s ease-in-out;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
