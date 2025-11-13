@@ -272,3 +272,60 @@ app.get('/all-users', (req, res) => {
     });
   });
   
+  // Excluir comentário
+  app.delete('/comments/:id', (req, res) => {
+    const commentId = req.params.id;
+    const user_id = req.query.user_id;
+  
+    const query = 'DELETE FROM comment WHERE id = ? AND author_id = ?';
+    connection.query(query, [commentId, user_id], (err, result) => {
+      if (err) return res.status(500).json({ success: false, message: 'Erro ao excluir comentário.' });
+      if (result.affectedRows === 0) {
+        return res.status(403).json({ success: false, message: 'Você só pode excluir seus próprios comentários.' });
+      }
+      res.json({ success: true, message: 'Comentário excluído!' });
+    });
+  });
+  
+  app.delete("/posts/:id", async (req, res) => {
+    const { id } = req.params;
+    const { user_id } = req.query;
+  
+    try {
+      const post = await db("posts").where({ id }).first();
+  
+      if (!post) {
+        return res.status(404).json({ error: "Post não encontrado" });
+      }
+  
+      if (post.author_id !== Number(user_id)) {
+        return res.status(403).json({ error: "Você não tem permissão para excluir este post" });
+      }
+  
+      await db("posts").where({ id }).del();
+      res.json({ message: "Post excluído com sucesso" });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Erro ao excluir post" });
+    }
+  });
+  
+  app.put("/posts/:id", async (req, res) => {
+    const { id } = req.params;
+    const { user_id, title, content, image_url } = req.body;
+  
+    try {
+      const post = await db("posts").where({ id }).first();
+  
+      if (!post) return res.status(404).json({ error: "Post não encontrado" });
+      if (post.author_id !== Number(user_id))
+        return res.status(403).json({ error: "Você não tem permissão para editar este post" });
+  
+      await db("posts").where({ id }).update({ title, content, image_url });
+      res.json({ message: "Post atualizado com sucesso" });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Erro ao atualizar post" });
+    }
+  });
+  
