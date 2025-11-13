@@ -287,45 +287,52 @@ app.get('/all-users', (req, res) => {
     });
   });
   
-  app.delete("/posts/:id", async (req, res) => {
-    const { id } = req.params;
-    const { user_id } = req.query;
+  app.delete('/posts/:id', (req, res) => {
+    const postId = req.params.id;
+    const userId = req.query.user_id;
+
+    const getPost = `SELECT * FROM photo WHERE id = ?`;
+    connection.query(getPost, [postId], (err, results) => {
+        if (err) return res.status(500).json({ error: "Erro ao buscar post" });
+        if (results.length === 0) return res.status(404).json({ error: "Post não encontrado" });
+
+        const post = results[0];
+        if (post.author_id !== Number(userId)) {
+            return res.status(403).json({ error: "Você não tem permissão para excluir este post" });
+        }
+
+        const deletePost = `DELETE FROM photo WHERE id = ?`;
+        connection.query(deletePost, [postId], (err2) => {
+            if (err2) return res.status(500).json({ error: "Erro ao excluir post" });
+            res.json({ success: true, message: "Post excluído com sucesso!" });
+        });
+    });
+});
+
   
-    try {
-      const post = await db("posts").where({ id }).first();
-  
-      if (!post) {
-        return res.status(404).json({ error: "Post não encontrado" });
-      }
-  
-      if (post.author_id !== Number(user_id)) {
-        return res.status(403).json({ error: "Você não tem permissão para excluir este post" });
-      }
-  
-      await db("posts").where({ id }).del();
-      res.json({ message: "Post excluído com sucesso" });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: "Erro ao excluir post" });
-    }
-  });
-  
-  app.put("/posts/:id", async (req, res) => {
-    const { id } = req.params;
-    const { user_id, title, content, image_url } = req.body;
-  
-    try {
-      const post = await db("posts").where({ id }).first();
-  
-      if (!post) return res.status(404).json({ error: "Post não encontrado" });
-      if (post.author_id !== Number(user_id))
-        return res.status(403).json({ error: "Você não tem permissão para editar este post" });
-  
-      await db("posts").where({ id }).update({ title, content, image_url });
-      res.json({ message: "Post atualizado com sucesso" });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: "Erro ao atualizar post" });
-    }
-  });
-  
+app.put('/posts/:id', (req, res) => {
+    const postId = req.params.id;
+    const { user_id, title, description } = req.body;
+
+    const getPost = `SELECT * FROM photo WHERE id = ?`;
+    connection.query(getPost, [postId], (err, results) => {
+        if (err) return res.status(500).json({ error: "Erro ao buscar post" });
+        if (results.length === 0) return res.status(404).json({ error: "Post não encontrado" });
+
+        const post = results[0];
+        if (post.author_id !== Number(user_id)) {
+            return res.status(403).json({ error: "Você não tem permissão para editar este post" });
+        }
+
+        const updateQuery = `
+            UPDATE photo 
+            SET title = ?, description = ?
+            WHERE id = ?
+        `;
+
+        connection.query(updateQuery, [title, description, postId], (err2) => {
+            if (err2) return res.status(500).json({ error: "Erro ao atualizar" });
+            res.json({ success: true, message: "Post atualizado!" });
+        });
+    });
+});
