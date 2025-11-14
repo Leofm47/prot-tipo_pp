@@ -310,29 +310,37 @@ app.get('/all-users', (req, res) => {
 });
 
   
-app.put('/posts/:id', (req, res) => {
+app.put('/posts/:id', upload.single('image'), (req, res) => {
     const postId = req.params.id;
     const { user_id, title, description } = req.body;
 
-    const getPost = `SELECT * FROM photo WHERE id = ?`;
-    connection.query(getPost, [postId], (err, results) => {
+    const newImage = req.file ? `/uploads/${req.file.filename}` : null;
+
+    connection.query(`SELECT * FROM photo WHERE id = ?`, [postId], (err, results) => {
         if (err) return res.status(500).json({ error: "Erro ao buscar post" });
         if (results.length === 0) return res.status(404).json({ error: "Post não encontrado" });
 
         const post = results[0];
+
         if (post.author_id !== Number(user_id)) {
-            return res.status(403).json({ error: "Você não tem permissão para editar este post" });
+            return res.status(403).json({ error: "Sem permissão" });
         }
 
-        const updateQuery = `
-            UPDATE photo 
-            SET title = ?, description = ?
-            WHERE id = ?
-        `;
+        let query = `UPDATE photo SET title = ?, description = ?`;
+        let values = [title, description];
 
-        connection.query(updateQuery, [title, description, postId], (err2) => {
-            if (err2) return res.status(500).json({ error: "Erro ao atualizar" });
+        if (newImage) {
+            query += `, url = ?`;
+            values.push(newImage);
+        }
+
+        query += ` WHERE id = ?`;
+        values.push(postId);
+
+        connection.query(query, values, (err2) => {
+            if (err2) return res.status(500).json({ error: "Erro ao atualizar o post" });
             res.json({ success: true, message: "Post atualizado!" });
         });
     });
 });
+

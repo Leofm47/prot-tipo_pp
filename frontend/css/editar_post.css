@@ -1,0 +1,186 @@
+/* ===============================
+   RESET E BASE
+==================================*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Lato", Arial, sans-serif;
+    background: #121212;
+    color: #f2f2f2;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    padding-bottom: 40px;
+}
+
+/* ===============================
+   CONTAINER PRINCIPAL
+==================================*/
+h1 {
+    max-width: 900px;
+    margin: 80px auto 20px auto;
+    padding: 0 24px;
+
+    font-size: 28px;
+    font-weight: 800;
+    text-transform: uppercase;
+
+    border-left: 5px solid #d0e413;
+    padding-left: 14px;
+
+    letter-spacing: 1px;
+    color: #f5f5f5;
+
+    animation: surgir 0.6s ease-in-out;
+}
+
+/* ===============================
+   FORMULÁRIO EDITAR POST
+==================================*/
+form {
+    max-width: 900px;
+    margin: 0 auto;
+    background: #18181a;
+    padding: 36px 40px;
+
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.55);
+
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: surgir 0.5s ease-in-out;
+}
+
+form:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+}
+
+form input,
+form textarea {
+    background: #242424;
+    color: #f5f5f5;
+    border: none;
+    border-radius: 10px;
+    padding: 14px 16px;
+    font-size: 16px;
+    outline: none;
+    transition: all 0.25s ease;
+}
+
+form input:focus,
+form textarea:focus {
+    background: #2c2c2c;
+    border-left: 3px solid #d0e413;
+}
+
+form textarea {
+    resize: none;
+    height: 150px;
+}
+
+/* ===============================
+   BOTÃO SALVAR ALTERAÇÕES
+==================================*/
+form button {
+    align-self: flex-end;
+    background: #d0e413;
+    color: #000;
+
+    font-weight: 700;
+    border: none;
+    border-radius: 10px;
+
+    padding: 12px 28px;
+    cursor: pointer;
+
+    letter-spacing: 0.5px;
+    transition: all 0.25s ease;
+}
+
+form button:hover {
+    background: #c0d113;
+    transform: translateY(-2px);
+    box-shadow: 0 3px 10px rgba(208, 228, 19, 0.25);
+}
+
+/* ===============================
+   PARÁGRAFO "TROCAR IMAGEM"
+==================================*/
+form p {
+    color: #c7c7c7;
+    margin-bottom: -5px;
+    font-size: 15px;
+}
+
+/* ===============================
+   INPUT FILE CUSTOMIZADO
+==================================*/
+input[type="file"] {
+    position: relative;
+    display: block;
+    width: 100%;
+    padding: 12px 14px;
+    background: #242424;
+    color: #f5f5f5;
+
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+
+    transition: all 0.25s ease;
+}
+
+input[type="file"]::-webkit-file-upload-button {
+    visibility: hidden;
+}
+
+input[type="file"]::before {
+    content: "Trocar imagem";
+    display: inline-block;
+    background: #d0e413;
+    color: #111;
+    font-weight: 700;
+
+    border-radius: 8px;
+    padding: 10px 20px;
+    margin-right: 12px;
+
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+input[type="file"]:hover::before {
+    background: #c0d113;
+    box-shadow: 0 3px 10px rgba(208, 228, 19, 0.25);
+    transform: translateY(-2px);
+}
+
+input[type="file"]:active::before {
+    transform: scale(0.97);
+}
+
+input[type="file"]:not(:disabled):not(:active):hover {
+    background: #2c2c2c;
+    border-left: 3px solid #d0e413;
+}
+
+input[type="file"] {
+    font-weight: 500;
+    color: #ccc;
+}
+
+/* ===============================
+   ANIMAÇÕES
+==================================*/
+@keyframes surgir {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
